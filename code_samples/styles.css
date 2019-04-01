@@ -1,0 +1,137 @@
+/* html5 css file, Peter Lubbers, Kaazing */
+
+body {
+	border:solid;
+	border-color:#FFFFFF;
+} 
+ 
+header {
+	display:block;
+	text-align:center;
+	width:100%;
+	
+}
+
+h1 {
+	font-size: 32px;
+	margin: 0px;
+}
+
+h2 {
+	font-size: 24px;
+	margin: 0px;
+	text-align:center;
+	padding: 15px;
+	background-color: #F47D31;
+	color:#FFFFFF;
+}
+
+h3 {
+	font-size: 18px;
+	margin: 0px;
+	text-align:center;
+}
+
+h4 {
+	color: #F47D31;
+	background-color: #fff;
+	-webkit-box-shadow: 2px 2px 20px #888;
+	-webkit-transform: rotate(-45deg);
+	position: absolute;
+	padding: 0px 150px;
+	top: 50px;
+	left: -120px;
+	text-align:center;
+	
+}
+
+header h2 {
+	margin: 0px;
+}
+
+nav {
+	display:block;
+}
+
+nav a:link, nav a:visited {
+	display: block;
+	border-bottom: 3px solid #fff;
+	padding: 10px;
+	text-decoration: none;
+	font-weight: bold;
+	margin: 5px;
+}
+
+nav a:hover {
+	color: white;
+	background-color: #000033;
+}
+
+nav h3 {
+	margin: 15px;
+	color: white;
+}
+
+#container {
+	background-color: #888;
+}
+
+section {
+	display:block;
+}
+
+article {
+	background-color: #eee;
+	display:block;
+	margin: 10px;
+	padding: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+article h2 {
+}
+
+aside {
+	display:block;
+}
+
+footer {
+	clear: both;	
+	display: block;
+	background-color: #F47D31;
+	color:#FFFFFF;
+	text-align:center;
+	padding: 15px;
+}
+
+
+/* links */
+a {
+	color: #F47D31;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#statusWin {
+	background-color: #33CCFF;
+	width: 350px;
+	height: 100px;
+	font: 1.1em arial, helvetica, sans-serif;
+	padding: 5px;
+	position: absolute;
+	visibility: hidden;
+	top: 10px;
+	left: 10px;
+	border: 2px #000000 solid;
+	clip: auto;
+	overflow: hidden;
+}
+
+#statusWin h1, #statusWin h2 {
+	font-size: 1.0em;
+}
+

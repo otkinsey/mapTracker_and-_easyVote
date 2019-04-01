@@ -1,0 +1,8 @@
+my onclick method is invoked when the page loads dunno why
+
+what is the calculation of the distance formula
+
+ex_06_audiosample - for part 2 xml loading functionality
+
+ex03_jsonSamples.js, awesome tdawesjsonWorker.js - for part 3
+ 

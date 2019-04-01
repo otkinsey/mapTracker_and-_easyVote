@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>HTML 5 Application - IndexedDb</title>
+	<script type="text/javascript" src="ex02_sample.js"></script>
+	<link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+	<div class="container">
+		<p>
+		<div class="row">
+			<button onclick="createDb()" class="btn btn-primary">Create Database</button>
+			<button onclick="populateDb()" class="btn btn-primary">Populate Database</button>
+			<button onclick="openDb()" class="btn btn-primary">Open Database</button>
+			<button onclick="displayDb()" class="btn btn-primary">Display Courses</button>
+		</div>
+		<p>
+		<div class="row">
+			
+			<button onclick="fetchCourse('cs701')" class="btn btn-primary">Fetch CS701</button>
+			<button onclick="updateCourse('cs701')" class="btn btn-primary">Update CS701</button>
+		</div>
+		<p>
+		<div class="row">
+			
+			<button onclick="displayCoreCourses()" class="btn btn-primary">Display Core Courses</button>
+			<button onclick="displayCourses1()" class="btn btn-primary">Display 600+ Courses</button>
+			<button onclick="displayCourses2()" class="btn btn-primary">Display 600- Courses</button>
+			<button onclick="displayCourses3()" class="btn btn-primary">Display 600 Courses</button>
+		</div>
+		<p>
+		<div class="row">
+			
+			<button onclick="clearAllCourses()" class="btn btn-danger">Clear Courses</button>
+			<button onclick="deleteDb()" class="btn btn-danger">Delete Database</button>
+		</div>
+		<p>
+			<div id="result" class="border border-info"></div>
+</body>
+</html>

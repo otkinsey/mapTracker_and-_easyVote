@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Web Worker Sample</title>
+        <meta charset="utf-8">
+        <script src="ex04_inlineWorkerSample.js"></script>
+        <link rel="stylesheet" href="html5.css">
+    </head>
+    <body>
+      <header>
+        <h2>Inline Web Worker Example</h2>
+      </header>
+      
+  <script id="worker1" type="JavaScript/worker">
+    var counter = 1;
+    self.onmessage = function(e) {
+        self.postMessage("Worker echos " + e.data + " too #" + 
+                            counter);
+        counter++;
+    }
+  </script>
+  
+        <section>
+            <article>
+                Send:   <input type="text" id="msg" value="Hello">
+                <p></p>
+                <button id="startButton">Start Worker</button>
+                <button id="sendButton">Send Message</button>
+                <button id="stopButton">Stop Worker</button>
+                <p></p>
+                <h3>Received Messages</h3>
+               
+                <ul id="items"></ul>
+            </article>
+        </section>
+    </body>
+</html>
