@@ -32,7 +32,7 @@ function makeRequest(url){
         xhr.onreadystatechange = loadCandidates;
         xhr.open("GET", url, true);
         xhr.send();
-        loadCandidates();
+        
     } else{
         document.getElementById("status").innerHTML = 
             "Candidates could not be loaded";
@@ -40,37 +40,65 @@ function makeRequest(url){
 }
 
 function loadCandidates(){
-    if(xhr.readyState == 4){
-        // console.log(xhr);
-        let candidates = xhr.responseXML.getElementsByTagName("senator");
-        let memberList = document.getElementById("members");
-        for(c of candidates){
-
-            let name = c.getElementsByTagName("name")[0];
-            let party = c.getElementsByTagName("party")[0];
-            let newCandidate = {
-                name: name,
-                party: party,
-                voted: false
+        if(window.localStorage.length !== 0){
+            let container;
+            for(var i=0;i<10;i++){
+                if(window.localStorage.getItem(`${i}_id`)){
+                    var localStorageId = window.localStorage.getItem(`${i}_id`);
+                    var localStorageClassName = window.localStorage.getItem(`${i}_className`);
+                    var localStorageIndex = window.localStorage.getItem(`${i}_index`);
+                    var localStorageValue = window.localStorage.getItem(`${i}_value`);
+                    var lsListItem = document.createElement("li");
+                    lsListItem.draggable = true;
+                    lsListItem.id = localStorageId;
+                    lsListItem.className = localStorageClassName;
+                    lsListItem.setAttribute("index", localStorageIndex);
+                    lsListItem.innerHTML = localStorageValue;
+    
+                    if(localStorageClassName.includes("Republican")){
+                        container = document.getElementById("republicans");
+                    } else{
+                        container = document.getElementById("republicans");                    
+                    }
+                }            
             }
-
-            /**
-             * add candidate object to candidateList array
-             */
-            candidateList.push(newCandidate);
-
-            /**
-             *  add candidate name to members list
-             */
-            let memberListItem = document.createElement("li");
-            memberListItem.draggable = true;
-            memberListItem.className = `${newCandidate.party.innerHTML} member`;
-            memberListItem.id = newCandidate.name.innerHTML.replace(" ", "_");
-            memberListItem.innerHTML = `${newCandidate.name.innerHTML}`;
-            memberList.appendChild(memberListItem);
-        }  
-    }
-    // console.log(candidateList);
+            container.appendChild(lsListItem);
+        }
+        if((xhr.readyState == 4)){
+            // console.log(xhr);
+            let candidates = xhr.responseXML.getElementsByTagName("senator");
+            let memberList = document.getElementById("members");
+            let candidateIndex = 0;
+            for(c of candidates){
+    
+                let name = c.getElementsByTagName("name")[0];
+                // console.log(name.innerHTML);
+                let party = c.getElementsByTagName("party")[0];
+                let newCandidate = {
+                    name: name.innerHTML,
+                    party: party.innerHTML,
+                    voted: false
+                }
+    
+                /**
+                 * add candidate object to candidateList array
+                 */
+                candidateList.push(newCandidate);
+    
+                /**
+                 *  add candidate name to members list
+                 */
+                let memberListItem = document.createElement("li");
+                memberListItem.draggable = true;
+                memberListItem.className = `${newCandidate.party} member`;
+                memberListItem.id = newCandidate.name.replace(" ", "_");
+                memberListItem.setAttribute("index", candidateIndex);
+                candidateIndex++;
+                memberListItem.innerHTML = `${newCandidate.name}`;
+                memberList.appendChild(memberListItem);
+            }  
+        }
+    console.log(candidateList.length);
 }
 
 /**
@@ -78,8 +106,9 @@ function loadCandidates(){
  */
 let dragStartHandler = (e)=>{
     e.dataTransfer.setData("id", e.target.id);
+    // e.dataTransfer.setData("classList", e.target.classList);
     e.target.classList.add("dragged");
-    // console.log("drag start");
+    // console.log(JSON.stringify(e.target.classList));
 }
 let dragEndHandler = (e)=>{ 
     e.target.classList.remove("dragged");   
@@ -94,21 +123,43 @@ let dragHandler = (e)=>{
  *  dragTarget event handlers
  */
 let dragEnterHandler = (e)=>{
-    e.dataTransfer.getData("text");
+    e.dataTransfer.getData("id");
     e.preventDefault();
-    console.log("drag enter");
 }
 let dragOverHandler = (e)=>{
-    console.log("drag over");
+    e.preventDefault();
 }
 let dragDropHandler = (e)=>{
     let id = e.dataTransfer.getData("id");
     let sourceElement = document.getElementById(id);
     let newElement = sourceElement.cloneNode(false);
-    e.target.appendChild(newElement);
-    console.log("dropped");
-    e.preventDefault();
+    let selectedCandidate = candidateList[newElement.getAttribute("index")];
+    newElement.innerHTML = id.replace("_", " ");
+
+    if(newElement.classList.value.includes("Republican") && (e.target.id == "republicans")){
+        e.preventDefault();
+        e.target.appendChild(newElement);
+    }
+    else if(newElement.classList.value.includes("Democrat") && (e.target.id == "democrats")){
+        e.preventDefault();
+        e.target.appendChild(newElement);
+    }
+ 
+    selectedCandidate.voted = true;
+    window.localStorage.setItem(`${newElement.getAttribute("index")}_id`, newElement.id);
+    window.localStorage.setItem(`${newElement.getAttribute("index")}_className`, newElement.className);
+    window.localStorage.setItem(`${newElement.getAttribute("index")}_index`, newElement.getAttribute("index"));
+    window.localStorage.setItem(`${newElement.getAttribute("index")}_value`, newElement.innerHTML);
+    if(candidateList[newElement.getAttribute("index")].voted){
+        window.localStorage.setItem(`${newElement.getAttribute("index")}_voted`, true);
+    }else{
+        window.localStorage.setItem(`${newElement.getAttribute("index")}_voted`, false);
+    }
+    
+
+    console.log(selectedCandidate);
 }
+
 
 
 window.onload = init;
